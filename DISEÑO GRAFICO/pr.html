@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja de Cereal 3D</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="cerealBoxCanvas" width="400" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('cerealBoxCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Sombra
+        ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+        ctx.shadowBlur = 15;
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 10;
+
+        // Dibuja la caja de cereal (rectángulo)
+        ctx.fillStyle = "#FFC107"; // Color amarillo para la caja
+        ctx.fillRect(100, 100, 200, 400); // x, y, ancho, alto
+
+        // Añade profundidad al centro de la caja
+        ctx.fillStyle = "#FFA000"; // Color más oscuro para la profundidad
+        ctx.fillRect(100, 250, 200, 250); // x, y, ancho, alto para sobresalir
+
+        // Barras laterales
+        ctx.fillStyle = "#795548"; // Color marrón para las barras laterales
+        ctx.fillRect(70, 100, 30, 400); // Barra izquierda
+        ctx.fillRect(300, 100, 30, 400); // Barra derecha
+
+        // Barra superior
+        ctx.fillRect(70, 100, 260, 30); // Barra superior
+
+        // Área para la imagen
+        ctx.fillStyle = "#BDBDBD"; // Color gris para el área de la imagen
+        ctx.fillRect(120, 105, 160, 20); // Área para la imagen
+        ctx.strokeStyle = "#795548"; // Color marrón para el borde de la imagen
+        ctx.strokeRect(120, 105, 160, 20); // Borde del área para la imagen
+
+        // Añade el texto del logo en la barra superior (más abajo)
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "16px Arial";
+        ctx.textAlign = "center"; // Centra el texto
+        ctx.fillText("Logo Aquí", 200, 120); // Ajusta la posición del texto
+
+        // Quitar sombra para el texto
+        ctx.shadowColor = "transparent";
+
+        // Añade el texto "Cereal"
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "40px Arial";
+        ctx.textAlign = "center"; // Centra el texto
+        ctx.fillText("Cereal", 200, 90); // Ajusta la posición del texto
+
+        // Etiqueta para el texto adicional
+        ctx.fillStyle = "#FFEB3B"; // Color amarillo claro para la etiqueta
+        ctx.fillRect(120, 350, 160, 30); // Etiqueta rectangular
+        ctx.strokeStyle = "#795548"; // Color marrón para el borde de la etiqueta
+        ctx.strokeRect(120, 350, 160, 30); // Borde de la etiqueta
+
+        // Añade texto a la etiqueta
+        ctx.fillStyle = "#000000"; // Color negro para el texto
+        ctx.font = "20px Arial";
+        ctx.fillText("Texto de Ejemplo", 125, 370); // Ajusta la posición del texto dentro de la etiqueta
+
+        // Barra inferior
+        ctx.fillRect(100, 500, 200, 30); // Barra inferior
+
+        // Añadir texto a la barra inferior
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "20px Arial";
+        ctx.fillText("Más Información", 130, 520); // Texto en la barra inferior
+
+        // Añade un diseño decorativo en la caja
+        ctx.strokeStyle = "#795548"; // Color marrón para las líneas
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(100, 500);
+        ctx.lineTo(300, 500);
+        ctx.lineTo(250, 550);
+        ctx.lineTo(150, 550);
+        ctx.closePath();
+        ctx.stroke();
+
+    </script>
+</body>
+</html>

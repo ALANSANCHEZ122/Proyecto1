@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nestlé - Fotos de la Empresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos para el carrusel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Tamaño máximo para el carrusel */
+            margin: auto;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-prev, .carousel-next {
+            position: absolute;
+            top: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .carousel-prev {
+            left: 10px;
+        }
+
+        .carousel-next {
+            right: 10px;
+        }
+
+        /* Estilos para el botón de auto-play */
+        .carousel-autoplay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #edb301;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 2;
+        }
+
+        .carousel-autoplay.active {
+            background-color: #d19c01;
+        }
+        
+        /*animacion hover*/
+        
+        .galeria {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .contenedor {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            cursor: pointer;
+            margin: 20px;
+            overflow: hidden;
+        }
+
+        .imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+
+        .texto-superior, .texto-inferior {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .texto-superior {
+            top: 10px; /* Posiciona el texto en la parte superior */
+        }
+
+        .texto-inferior {
+            bottom: 10px; /* Posiciona el texto en la parte inferior */
+        }
+
+        .contenedor:hover .imagen {
+            transform: scale(2.1); /*tamaño de zoom*/
+        }
+
+        .contenedor:hover .texto-superior,
+        .contenedor:hover .texto-inferior {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="principio2.0.html"><span>Inicio</span></a>
+        <a href="quienes.html"><span>Quienes Somos</span></a>
+        <a href="contactos.html"><span>Contactos</span></a>
+    </nav>
+    <header>
+        <img src="img/logohr.jpg" alt="Banner de Nestlé" class="logo">
+    </header>
+
+    <div class="carousel">
+        <button class="carousel-autoplay">Auto</button>
+        <div class="carousel-container">
+            <div class="carousel-slide"><img src="img/tazas2.jpeg" alt="Imagen 1"></div>
+            <div class="carousel-slide"><img src="img/llaveros1.jpeg" alt="Imagen 2"></div>
+            <div class="carousel-slide"><img src="img/estampado.jpg" alt="Imagen 3"></div>
+        </div>
+        <button class="carousel-prev">&lt;</button>
+        <button class="carousel-next">&gt;</button>
+    </div>
+<h1>Galería de Imágenes - Nestlé</h1>
+    <div class="galeria">
+        <div class="contenedor">
+            <img src="img/planchas.jpg" alt="Nestlé Logo" class="imagen">
+            <div class="texto-superior">distribucion global</div>
+            <div class="texto-inferior">camiones de nestle llevando calidad a cada rincon del mundo</div>
+        </div>
+        <div class="contenedor">
+            <img src="img/ploter.jpeg" alt="Nestlé Headquarters" class="imagen">
+            <div class="texto-superior">corazon de la innovacion</div>
+            <div class="texto-inferior">fabrica de nestle donde la tradicion se une con la tecnologia</div>
+        </div>
+        <div class="contenedor">
+            <img src="img/tazas2.jpeg" alt="Nestlé Products" class="imagen">
+            <div class="texto-superior">diversidad y calidad</div>
+            <div class="texto-inferior">productos de nestle nutricion y sabor para todas las edades</div>
+        </div>
+    </div>
+    <footer>
+        <address>
+            <small>
+                Web realizado por: <span class="author">Alan Franco Sanchez Silva</span><br>
+                Copyright © 2023 NESTLE<br>
+                Última actualización: 02 de abril de 2024
+            </small>
+        </address>
+    </footer>
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        let autoPlayInterval;
+        const autoPlayButton = document.querySelector('.carousel-autoplay');
+
+        document.querySelector('.carousel-next').addEventListener('click', () => {
+            index = (index + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        document.querySelector('.carousel-prev').addEventListener('click', () => {
+            index = (index - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        autoPlayButton.addEventListener('click', () => {
+            if (autoPlayButton.classList.contains('active')) {
+                stopAutoPlay();
+            } else {
+                startAutoPlay();
+            }
+        });
+
+        function updateCarousel() {
+            document.querySelector('.carousel-container').style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function startAutoPlay() {
+            autoPlayButton.classList.add('active');
+            autoPlayButton.textContent = 'Stop';
+            autoPlayInterval = setInterval(() => {
+                index = (index + 1) % totalSlides;
+                updateCarousel();
+            }, 3000); // Cambia cada 3 segundos
+        }
+
+        function stopAutoPlay() {
+            autoPlayButton.classList.remove('active');
+            autoPlayButton.textContent = 'Auto';
+            clearInterval(autoPlayInterval);
+        }
+    </script>
+</body>
+</html>
